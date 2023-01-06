@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     void SetRandomColor()
     {
-        int index = Random.Range(0,3);
+        int index = Random.Range(0,4);
         switch (index)
         {
             case 0:
@@ -51,6 +51,9 @@ public class Player : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
-        
+        if(other.tag != CurrentCol)
+        {
+            Debug.Log("GAME OVER");
+        }
     }
 }
