@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     public float jumpForce = 10f;
-    public string CurrentCol;
+    private string CurrentCol;
     public SpriteRenderer spriteRenderer;
     public Color colorCyan;
     public Color colorYellow;
@@ -41,7 +42,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0))
@@ -51,9 +51,17 @@ public class Player : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
+        if(other.tag == "ColorChanger")
+        {
+            SetRandomColor();
+            Destroy(other.gameObject);
+            return;
+        }
+
         if(other.tag != CurrentCol)
         {
             Debug.Log("GAME OVER");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
